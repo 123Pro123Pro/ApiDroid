@@ -1,0 +1,41 @@
+<div class="col-md-5">
+      <h3 class="display-4">Inspect</h3>
+       Link: <a href="chrome://inspect/#devices">chrome://inspect/#devices</a>
+
+
+    <h3 class="display-4">Proxy Setting (Current app only)</h3>
+    
+    <p> All app traffic will go through 127.0.0.1:8080 on the device;
+
+    run <code>adb reverse tcp:8080 tcp:8080</code> to bind it to the proxy host</p>
+
+</div>
+<div class="col-md-5">
+    <hr>
+    <form class="form-horizontal" role="form">
+        <div class="btn-group">
+            <label class="switch">
+                <input type="checkbox" id="PRELOAD_STETHO">
+                <span class="slider"></span>
+            </label><small class="text-uppercase"><b>Inspect</b></small>
+        </div>
+        <div class="btn-group">
+            <label class="switch">
+                <input type="checkbox" id="PRELOAD_SSLSTRIP" checked>
+                <span class="slider"></span>
+            </label><small class="text-uppercase"><b> SSL UnPinning</b></small>
+        </div>
+        <div class="btn-group">
+            <label class="switch">
+                <input type="checkbox" id="PRELOAD_SETPROXY">
+                <span class="slider"></span>
+            </label><small class="text-uppercase"><b> Set Proxy</b></small>
+        </div>
+    </form>
+    <br>
+    <button class="btn btn-success" onclick="runpreload();">Preload</button>
+    <button class="btn btn-danger" onclick="endpreload();">Terminate Preload</button>
+</div>
+
+
+

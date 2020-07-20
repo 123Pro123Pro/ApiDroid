@@ -1,0 +1,254 @@
+<div class="container-fluid" >
+    <br />
+    <div class=" well" style="padding-bottom: 0px; padding-left: 0px; padding-top: 0px;">
+    <!-- <p class="text-info">Type Script </p> -->
+    <ul class="nav nav-pills nav-fill" id="nav_enum" style="  margin-left: 0px;">
+        <li class="nav"><a data-toggle="tab" href="#loadedClasses" onclick="enumAllClasses();" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px"> Classes<i class="glyphicon"></i></a></li>
+        <li class="nav"><a data-toggle="tab" href="#classMethods" id="class_methods"> Methods</a></li>
+        <li class="nav"><a data-toggle="tab" href="#AllClasses" onclick="enumDexClasses();">Dex Classes<i class="glyphicon"></i></a></li>
+        <li class="nav"><a data-toggle="tab" href="#AllClassLoaders" onclick="enumClassLoaders();">ClassLoaders<i class="glyphicon"></i></a></li>
+        
+        <li class="nav"><a data-toggle="modal" href="#history" data-target="#enum_history" id="get_enum_history">History Scripts</a></li>
+        <div class="modal fade" id="enum_history" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><code>./cache/enum</code></h5>
+                    </div>
+                    <div class="modal-body " id="enum_history_output">
+                        <div class="row">
+                            <div class="col-md-4 pre-scrollable" id="dir_enum_lst">
+                            </div>
+                            <div id="editor_enum_history" class="col-md-8 ml-auto"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="load_enum_history_script();">Load this</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="loadedClasses"></div>
+        <div class="tab-pane" id="AllClasses"></div>
+        <div class="tab-pane" id="history">asdf</div>
+        <div class="tab-pane" id="classMethods">
+            <div class="" style="margin-bottom: 5px;">
+                <!-- <p class="text-primary">Enum under this class: </p> -->
+                <b> Choose class to list methods: </b>
+                <div class="dropdown">
+                    <button id="btn_list_class1" style="width: 10%; border-top-right-radius: 0px; border-bottom-right-radius: 0px"  class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">List class
+                    <span class="caret"></span></button>
+                    <ul id="list_class1" class="dropdown-menu">
+                      <li><a href="#">List Class</a></li>
+                    </ul>
+                    <input style="width: 90%; float: right; border-top-left-radius: 0px; border-bottom-left-radius: 0px" id="class_to_find" class="col-sm-6 form-control" placeholder="Class Name">
+                </div>
+                
+                <span class="input-group-btn" style="display: none;">
+                      <button class="btn btn-success" type="button" id="find_class">Generate Script</button>
+                      <button id="editor3_clear" class="btn btn-warning">Clear</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div id="enum_info">
+        <div>
+            <b> Script: </b>
+            <button id="load_script_enum" class="btn btn-success">Load</button>
+            <button class="btn btn-warning" onclick="unload_script(); clear_EnumMessage()">UnLoad</button>
+            <button class="btn btn-info" data-toggle="collapse" data-target="#editor3">View</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#save_enum_script">
+                Save
+            </button>
+            <div id="editor3" class="collapse"></div>
+            <!-- Modal -->
+            <div class="modal fade" id="save_enum_script" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body ">
+                            <div class="container-fluid">
+                                <p class="text-primary">Save As: </p>
+                                <br />
+                                <input id="save_enumscript_name" class="form-control" placeholder="classname" value="enum_tmp">
+                                <br />
+                                <button class="btn btn-success" type="button" id="save_enum_script_button">Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close_save_enum_script">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!-- <p class="text-info"> Enum OutPuts </p> -->
+        <br>
+        <b>Exclude filter:</b> 
+        <div>
+        
+        <input type="text" id="myInput" class="form-control" placeholder="com.android,com.google,org.json" title="Type in a name"  value='com.android,android.,com.miui,javax.,org.apache,miui.,org.ccil.,java.net,org.,java.,sun.,libcore.,dalvik,com.qualcomm,okhttp3.,com.google.,[,$' style="width:90%; float:left; border-bottom-right-radius: 0px;border-top-right-radius: 0px;">
+        <button class="btn btn-success" type="button" id="filter_class" check=0 style="width:10%; float:left; border-bottom-left-radius: 0px;border-top-left-radius: 0px;">Filter/Unfilter</button>
+        <br>
+        <br>
+        </div>
+        <!-- 
+        <button class="btn btn-success" type="button" id="saveCurrentClasses">Save Current Class</button>
+        <button class="btn btn-success" type="button" id="saveAllClasses">Save All Class</button>
+        <button class="btn btn-success" type="button" id="loadClasses">Load Save Class</button> -->
+        
+        <div id="editor4">OutPuts</div>
+    </div>
+    <br />
+
+</div>
+<script>
+  var input = document.getElementById("myInput");
+  var newFilterClass;
+  input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+     event.preventDefault();
+     $.get('http://' + location.host + '/enum_messages', (data) => {
+         //editor4.setValue(data)
+         //console.log(data)
+          unload_script()
+          filter_class(data, 0)
+     })
+    }
+  });
+
+  function filter_class(data, check) {
+    var input, filter, table, tr, td, i, txtValue, check, newData;
+    newData=[];
+
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase().split(",");
+    console.log("ccccc")
+    if (check==1) {
+      filter = [""]
+    } 
+    
+    //filter = input.value.toUpperCase();
+    
+    if(filter=="") filter = ["#######################"];
+    str = data.split(/\r?\n/);
+    for (i = 0; i < str.length; i++) {
+      if (str[i]) {
+        for (var j=filter.length-1; j >= 0; j--) {
+            if (str[i].toUpperCase().indexOf(filter[j]) > -1) {
+              check = 1;
+            }
+        }
+        if (check==0) {
+          newData.push(str[i]);
+        }
+        check =0;
+        
+      }       
+    }
+    newFilterClass = newData;
+    editor4.setValue(newData.join("\n"));
+  }
+  function filterClass(filter){
+      $.get('http://' + location.host + '/enum_messages', (data) => {
+         //editor4.setValue(data)
+         //console.log(data)
+          unload_script()
+          filter_class(data, filter)
+     })
+  }
+
+</script>
+<script type="text/javascript">
+    function getAllClass() {
+        $.get('http://' + location.host + '/enum_messages', (data) => {
+            //editor4.setValue(data)
+            console.log(data)
+
+            unload_script()
+        })
+    }
+    document.getElementById("btn_list_class1").onclick = function(){
+        var str ="";
+        for (var i = 0; i <= newFilterClass.length - 1; i++) {
+            str+="<li><a onclick='document.getElementById(\"class_to_find\").value=this.innerHTML.substring(1, this.innerHTML.length-1);document.getElementById(\"find_class\").click();'>"+ newFilterClass[i]+"</a></li>";
+        }
+        document.getElementById("list_class1").innerHTML=str;
+    }
+
+    document.getElementById("filter_class").onclick = function(){
+      if ( document.getElementById("filter_class").getAttribute("check") == 0) {
+        filterClass(0);
+        document.getElementById("filter_class").setAttribute("check",1);
+      } else{
+        filterClass(1);
+        document.getElementById("filter_class").setAttribute("check",0);
+      }
+      
+    }
+    // document.getElementById("saveCurrentClasses").onclick = function(){
+    //   save_class_filtered(editor4.getValue());
+    // }
+    // document.getElementById("saveAllClasses").onclick = function(){
+    //   save_class_filtered(allCurrentClasses);
+    // }
+    // document.getElementById("loadClasses").onclick = function(){
+    //   load_class_filtered();
+    // }
+</script>
+<script type="text/javascript">
+  var input_class = document.getElementById("class_to_find");
+  input_class.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+     event.preventDefault();
+     document.getElementById("find_class").click();
+    }
+  });
+</script>
+
+
+
+
+<!-- <script>
+ function  xxxx () {
+   $.get('http://' + location.host + '/enum_messages', (data) => {
+       //editor4.setValue(data)
+       //console.log(data)
+        unload_script()
+        myFunction2(data)
+   })
+}
+
+function myFunction2(data) {
+  var input, filter, table, tr, td, i, txtValue, check, newData;
+  newData=[];
+  input = document.getElementById("myInput");
+  //filter = input.value.toUpperCase();
+  filter = input.value.toUpperCase().split(",");
+  if(filter=="") filter = ["#######################"];
+  str = data.split(/\r?\n/);
+  for (i = 0; i < str.length; i++) {
+    if (str[i]) {
+      for (var j=filter.length-1; j >= 0; j--) {
+          if (str[i].toUpperCase().indexOf(filter[j]) > -1) {
+            check = 1;
+          }
+      }
+      if (check==1) {
+        newData.push(str[i]);
+      }
+      check =0;
+      
+    }       
+  }
+  newFilterClass = newData;
+  editor4.setValue(newData.join("\n"));
+}
+
+
+</script> -->

@@ -1,0 +1,109 @@
+<!-- <h1>The select multiple attribute</h1>
+
+<p>The multiple attribute specifies that multiple options can be selected at once:</p>
+
+<form action="/action_page.php">
+  <label for="cars">Choose a car:</label>
+  <select name="cars" id="cars" multiple>
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="opel">Opel</option>
+    <option value="audi">Audi</option>
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<p>Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.</p> -->
+<style type="text/css">
+
+table{
+    table-layout: fixed;
+}
+
+td {
+	text-overflow: ellipsis; 
+	overflow: hidden;
+}
+
+</style>
+<div class="row">
+	
+    <div class="col-sm-3">
+    	<p class="text-info">List classes </p>
+    	<div id="editor_multihooks" style="height: 1000px">"com.zing.zalocore.utils.cryptology.CoreUtils"</div>
+		
+    </div>
+    <div class="col-sm-9">
+    	<div class="row">
+	    	<p class="text-info">Match in </p>
+	    	<div  class="col-sm-6">
+	    		<h5 class="text-primary"> Input (input1||input2||...)</h5> <input value="aaa||bbb" id="match_input" class="form-control form-control-sm" type="" name="">
+	    		
+	    	</div>
+	    	<div  class="col-sm-6">
+				<h5 class="text-primary"> Output (output1||output2||...)</h5> <input value="" id="match_output" class="form-control form-control-sm" type="" name="">
+
+			</div>
+		</div>
+
+		
+	
+		<button id="gen_script_multi_hooks" class="btn btn-success ">Generate Script</button>
+		<button id="load_script_hook_multi" class="btn btn-info">Load</button>
+		<button id="" class="btn btn-warning" onclick="unload_script();">Detach</button>
+		<button class="btn btn-success" id="view_script_hook_multi" check=1 onclick="showScipt_multihooks()">View</button><!-- 
+    	<button class="btn btn-danger" onclick="hideScipt_multihooks()">Hide</button> -->
+    	<div id="editor_script_multihooks" style="height: 400px; display: none;"></div>
+
+		<div class="row">
+
+			<p class="text-primary"> Hooking History </p>
+	        <div class="pre-scrollable" style="min-height: 200px;">
+	            
+	            <table class="table table-bordered table-hover" id="outputTb5">
+	                <thead>
+	                <tr>
+	                    <th style="">MethodName <a check='false'><i class="glyphicon glyphicon-sort"></i></a></th>
+	                    <th style="">Args value <a check='false'><i class="glyphicon glyphicon-sort"></i></a></th>
+	                    <th style="">Return value <a check='false'><i class="glyphicon glyphicon-sort"></i></a></th>
+	                    <th style="">Time <a check='false'><i class="glyphicon glyphicon-sort"></i></a></th>
+	                </tr>
+	                </thead>
+	                <tbody id="outputBody1">
+		                <!-- <tr>
+		                	<td width="25%">put(string,object)</td>
+		                	<td width="25%">tttttttt</td>
+		                	<td width="25%">xxxxxxxxx</td>
+		                	<td width="25%">18:0:18:978</td>
+		                </tr> -->
+	                </tbody>
+	            </table>
+	        </div>
+		</div>
+		<div class="row">
+			<p class="text-info">Text view </p><button class="btn btn-outline-info" onclick="json_beautiful()">Json Beautiful</button>
+			<div id="editor_view_multihooks" style="height: 200px;"></div>
+		</div>
+    </div>
+</div>
+<script type="text/javascript">
+function json_beautiful(){
+	var text = editor_view_multihooks.getValue();
+	var json = JSON.parse(text)
+	editor_view_multihooks.setValue(JSON.stringify(json, null, "\t"))
+}
+
+document.getElementById("view_script_hook_multi").onclick = function(){
+  if ( document.getElementById("view_script_hook_multi").getAttribute("check") == 0) {
+    document.getElementById("editor_script_multihooks").setAttribute("style", " height: 400px; display: none;");
+    document.getElementById("view_script_hook_multi").setAttribute("check",1);
+  } else{
+    document.getElementById("editor_script_multihooks").setAttribute("style", "height: 400px");
+    document.getElementById("view_script_hook_multi").setAttribute("check",0);
+  }
+}
+
+
+$("td").attr("onclick","editor_view_multihooks.setValue(this.innerHTML)");
+</script>

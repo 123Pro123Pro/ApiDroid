@@ -1,0 +1,126 @@
+<div class="container-fluid">
+    <p id="toggle_inspect_info" class="text-primary" style="cursor: pointer;">Inspect <i class="glyphicon glyphicon-resize-small"></i></p>
+    <div class="well" id="inspect-div">
+        <div id="inspect_info">
+            <div class="row">
+                <div id="inputhook" class="col-sm-6">
+                    <p class="text-primary"> Inspect Inputs </p>
+                    <div class="dropdown">
+                        <button style="width: 20%; float: left; border-bottom-right-radius: 0px;border-top-right-radius: 0px;" id="btn_list_class_intercept"  class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">List class *
+                        <span class="caret"></span></button>
+                        <ul id="list_class_intercept" class="dropdown-menu">
+                          <li><a href="#">List Class</a></li>
+                        </ul>
+                        <input style="width: 80%; float: left; border-bottom-left-radius: 0px;border-top-left-radius: 0px;" id="inspect_classname" class="form-control" placeholder="classname">
+                    </div>
+                    
+                    <div class="dropdown">
+                        <button style="width: 20%; float: left; border-bottom-right-radius: 0px;border-top-right-radius: 0px;" id="btn_list_method_intercept" class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">List method*
+                        <span class="caret"></span></button>
+                        <ul id="list_method_intercept" class="dropdown-menu">
+                          <li><a href="#">List Method</a></li>
+                        </ul>
+                        <input style="width: 80%; float: left; border-bottom-left-radius: 0px;border-top-left-radius: 0px;" id="inspect_method" class="form-control" placeholder="method">
+                      </div>
+
+                    
+                    <button id="Inspect" class="btn btn-info">Inspect</button>
+                </div>
+                <div class="pre-scrollable col-sm-6">
+                    <p class="text-primary"> Inspect OutPuts </p>
+                    <div id="inspect_result">Please Wait
+                    </div>
+                    <div class="modal fade" id="intercept_history" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle"><code>./cache/intercept</code></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-4 pre-scrollable" id="dir_int_lst">
+                                        </div>
+                                        <div id="editor_intercept_history" class="col-md-8 ml-auto"></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="load_intercept_history_script();">Load this</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" id="intercept-info-div">
+        <div class="col-sm-12">
+            <p class="text-primary"> Intercept Scripts </p>
+            <div id="intercepts_script_editor" class="collapse">Please Wait
+            </div>
+            <button id="load_intercept_script" class="btn btn-success">Load</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#save_intercept_script">Save</button>
+            <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#intercepts_script_editor">View</button>
+            <div class="modal fade" id="save_intercept_script" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body ">
+                            <div class="container-fluid">
+                                <p class="text-primary">Save As: </p>
+                                <br />
+                                <input id="save_interceptscript_name" class="form-control" placeholder="classname" value="intercept_tmp">
+                                <br />
+                                <button class="btn btn-success" type="button" id="save_intercept_script_button">Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close_save_intercept_script">Close</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <p class="text-primary"> Intercept Outputs </p>
+            <div id="editor5">Intercept OutPuts</div>
+            <button id="intercept_send" class="btn btn-info">Forward</button>
+            <button id="intercept_detach" class="btn btn-warning" onclick="unload_script(); clear_inspect()">Unload</button>
+        </div>
+    </div>
+    <br />
+    <p class="clickable text-primary" class="text-primary" id="toggle_repl"> REPL <i class="glyphicon glyphicon-menu-right"></i></p>
+    <div class="well" id="intercept-repl-div" style="display: none;">
+        <div class="row container-fluid">
+            <div id="editor6" class="col-sm-5"></div>
+            <div class="col-sm-1">
+                <button id="repl_send" class="btn btn-primary"> Run </button>
+                <button id="repl_clear" class="btn btn-info">Clear</button>
+                <button id="repl_clear" class="btn btn-warning" onclick="quitRepl()">Done</button>
+            </div>
+            <div id="editor7" class="col-sm-6"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+  document.getElementById("btn_list_class_intercept").onclick = function(){
+      var str ="";
+      for (var i = 0; i <= newFilterClass.length - 1; i++) {
+          str+="<li><a onclick='document.getElementById(\"inspect_classname\").value=this.innerHTML.substring(1, this.innerHTML.length-1);getMethod();'>"+ newFilterClass[i]+"</a></li>";
+      }
+      document.getElementById("list_class_intercept").innerHTML = str;
+  }  
+
+  function listMethodHook(classname){
+    document.getElementById("class_to_find").value = classname;
+    document.getElementById("find_class").click();
+    document.getElementById("load_script_enum").click();
+    
+  }
+</script>

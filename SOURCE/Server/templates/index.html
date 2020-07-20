@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>APIDroid | LamTruong | 16521333</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='assets/images/favicon.png') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/default.min.css') }}">
+    <script type=text/javascript src="{{
+      url_for('static', filename='src-min/jquery.min.js') }}"></script>
+    <script type=text/javascript src="{{
+      url_for('static', filename='src-min/socket.io.js') }}"></script>
+    <script type=text/javascript src="{{
+      url_for('static', filename='src-min/bootstrap.min.js') }}"></script>
+    <script type=text/javascript src="{{
+      url_for('static', filename='js/app.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='src-min/ace.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='src-min/ext-beautify.js') }}"></script>
+    <style>
+        .row.content {
+        height: 550px
+    }
+    /* Set gray background color and 100% height */
+
+    .sidenav {
+        background-color: #f1f1f1;
+        height: 100%;
+    }
+    /* On small screens, set height to 'auto' for the grid */
+
+    @media screen and (max-width: 767px) {
+        .row.content {
+            height: auto;
+        }
+    }
+    .ace_editor {
+        border-radius: 10px;
+    }
+    .bg-success {
+        border-radius: 15px;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/all.min.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/shieldui-lite-all.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/shortGridData.js') }}"></script>
+</head>
+
+<body>
+    <div class="container-fluid" style=" padding-left: 0px; padding-right: 0px;">
+        <div class="container-fluid" style=" padding-left: 0px; padding-right: 0px;">
+
+            <!-- <a href="#" class="btn btn-secondary text-mute" id="menu-toggle" style="font-size: 250%;font-family: Apple Chancery, cursive">UIT Andbyg</a> -->
+            <div id="err_msg">
+            </div>
+            <ul class="nav nav-tabs " style="margin-left: 0px; ">
+                    
+                <img src="{{ url_for('static', filename='assets/images/logo.png') }}" height="35" alt="JSOFT Admin" style="margin-right:20px; float: left; margin-left: 10px;" />
+
+                <li class="nav active"><a data-toggle="tab" href="#env"><i class="glyphicon glyphicon-screenshot"></i> <label class="nav_label"> Target </label></a></li>
+
+                <li class="nav"><a data-toggle="tab" href="#enum"><i class="glyphicon glyphicon-list-alt"></i> <label class="nav_label"> Enumeration </label></a></li>
+                <li class="nav"><a data-toggle="tab" href="#hooks"><i class="glyphicon glyphicon-pushpin"></i> <label class="nav_label"> Hooks</label></a></li>
+                <li class="nav"><a data-toggle="tab" href="#hooks_multi"><i class="glyphicon glyphicon glyphicon-th"></i> <label class="nav_label"> Multi Hooks</label> </a></li>
+                <li class="nav"><a data-toggle="tab" href="#intercepts" onclick="socket.emit('fetchInspect');"><i class="glyphicon glyphicon-log-in"></i> <label class="nav_label"> Intercept </label></a></li>
+                <li><span id="uuid" style="display: None;">{{ uuid }}</span>
+
+                <li class="nav"><a data-toggle="tab" href="#preload"><i class="glyphicon glyphicon glyphicon-retweet"></i> <label class="nav_label"> Preload </label></a></li>
+                <li class="nav"><a data-toggle="tab" href="#monitor"><i class="glyphicon glyphicon glyphicon-eye-open"></i> <label class="nav_label"> Monitor </label></a></li>
+                
+            </ul>
+            <div class="container-fluid">
+                
+                <div class="tab-content">
+                    <div class="tab-pane fade" id="hooks_multi">
+                        {{ hooks_multi | safe }}
+                    </div>
+                    <div class="tab-pane fade in active" id="env">
+                        {{ env | safe}}
+                    </div>
+                    <div class="tab-pane fade" id="monitor">
+                        {{ monitor | safe}}
+                    </div>
+                    <div class="tab-pane fade" id="preload">
+                        {{ preload | safe}}
+                    </div>
+                    <div class="tab-pane fade" id="enum">
+                        {{ enum | safe}}
+                    </div>
+                    <div class="tab-pane fade" id="hooks">
+                        {{ hooks | safe }}
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="intercepts">
+                    {{intercepts | safe}}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript">
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+    editor.session.setUseWrapMode(true);
+
+    var editor2 = ace.edit("editor2");
+    editor2.setTheme("ace/theme/dracula");
+    editor2.session.setMode("ace/mode/javascript");
+    editor2.session.setUseWrapMode(true);
+
+    var editor3 = ace.edit("editor3");
+    editor3.setTheme("ace/theme/dracula");
+    editor3.session.setMode("ace/mode/javascript");
+    editor3.session.setUseWrapMode(true);
+
+    var editor4 = ace.edit("editor4");
+    editor4.setTheme("ace/theme/twilight");
+    editor4.session.setMode("ace/mode/javascript");
+    editor4.session.setUseWrapMode(true);
+    editor4.session.setUseWorker(false)
+    editor4.setReadOnly(true);
+
+
+    var editor5 = ace.edit("editor5");
+    editor5.setTheme("ace/theme/dracula");
+    editor5.session.setMode("ace/mode/javascript");
+    editor5.session.setUseWrapMode(true);
+    editor5.session.setUseWorker(false)
+
+    var editor6 = ace.edit("editor6");
+    editor6.setTheme("ace/theme/terminal");
+    editor6.session.setMode("ace/mode/javascript");
+    editor6.session.setUseWrapMode(true);
+
+    var editor7 = ace.edit("editor7");
+    editor7.setTheme("ace/theme/monokai");
+    editor7.session.setMode("ace/mode/javascript");
+    editor7.session.setUseWrapMode(true);
+    editor7.setReadOnly(true);
+
+    ///
+
+    var editor_multihooks = ace.edit("editor_multihooks");
+    editor_multihooks.setTheme("ace/theme/dracula");
+    editor_multihooks.setAutoScrollEditorIntoView(true);
+    editor_multihooks.session.setMode("ace/mode/javascript");
+    editor_multihooks.session.setUseWrapMode(true);
+    editor_multihooks.session.setUseWorker(false);
+    editor_multihooks.setReadOnly(false);
+
+    var editor_view_multihooks = ace.edit("editor_view_multihooks");
+    editor_view_multihooks.setTheme("ace/theme/dracula");
+    editor_view_multihooks.setAutoScrollEditorIntoView(true);
+    editor_view_multihooks.session.setMode("ace/mode/javascript");
+    editor_view_multihooks.session.setUseWrapMode(true);
+    editor_view_multihooks.session.setUseWorker(false);
+    editor_view_multihooks.setReadOnly(false);
+
+    var editor_view_hooks = ace.edit("editor_view_hooks");
+    editor_view_hooks.setTheme("ace/theme/dracula");
+    editor_view_hooks.setAutoScrollEditorIntoView(true);
+    editor_view_hooks.session.setMode("ace/mode/javascript");
+    editor_view_hooks.session.setUseWrapMode(true);
+    editor_view_hooks.session.setUseWorker(false);
+    editor_view_hooks.setReadOnly(false);
+
+    var editor_script_multihooks = ace.edit("editor_script_multihooks");
+    editor_script_multihooks.setTheme("ace/theme/dracula");
+    editor_script_multihooks.setAutoScrollEditorIntoView(true);
+    editor_script_multihooks.session.setMode("ace/mode/javascript");
+    editor_script_multihooks.session.setUseWrapMode(true);
+    editor_script_multihooks.session.setUseWorker(false);
+    editor_script_multihooks.setReadOnly(false);
+
+
+    ///
+
+    var intercepts_script_editor = ace.edit("intercepts_script_editor");
+    intercepts_script_editor.setTheme("ace/theme/dracula");
+    intercepts_script_editor.session.setMode("ace/mode/javascript");
+    intercepts_script_editor.session.setUseWrapMode(true);
+
+    var editor_hook_history = ace.edit("editor_hook_history");
+    editor_hook_history.setTheme("ace/theme/dracula");
+    editor_hook_history.session.setMode("ace/mode/javascript");
+    editor_hook_history.session.setUseWrapMode(true);
+
+    var editor_enum_history = ace.edit("editor_enum_history");
+    editor_enum_history.setTheme("ace/theme/dracula");
+    editor_enum_history.session.setMode("ace/mode/javascript");
+    editor_enum_history.session.setUseWrapMode(true);
+
+    var editor_intercept_history = ace.edit("editor_intercept_history");
+    editor_intercept_history.setTheme("ace/theme/dracula");
+    editor_intercept_history.session.setMode("ace/mode/javascript");
+    editor_intercept_history.session.setUseWrapMode(true);4
+
+    </script>
+</body>
+</html>
