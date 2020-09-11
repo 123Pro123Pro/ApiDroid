@@ -1,1 +1,1 @@
-{"packagename": "com.vnpay.bidv", "enum_option": "enumAllClasses", "class_pattern": "", "class_to_find": "com.ss.android.common.applog.NetUtil"}
+{"packagename": "com.vnpay.bidv", "enum_option": "", "class_pattern": "", "class_to_find": "com.ss.android.common.applog.NetUtil"}

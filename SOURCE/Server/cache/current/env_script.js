@@ -10,7 +10,7 @@ Java.perform(function() {
     // Inspired by https://github.com/sensepost/objection
     if (app != null) {
         context = app.getApplicationContext();
-        var launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.mservice.momotransfer");
+        var launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.vnpay.bidv");
         // var app_classname = launchIntent.getComponent().getClassName();
         // This may necessarity return the correct class name; if not; change this yourself after decompiling the apk
         var app_classname = app.getClass().toString().split(' ')[1];
