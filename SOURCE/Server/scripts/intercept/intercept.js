@@ -39,7 +39,7 @@ setTimeout(function() {
         if (app != null){
             context = app.getApplicationContext();
         }
-        console.log("In da house..intercept.js")
+        
         var c_{{clazz_hook.encode('utf-8').hex()}} = Java.use("{{clazz_name}}");
 
         ///
