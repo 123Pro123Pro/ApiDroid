@@ -985,8 +985,11 @@ def listAllApplications():
 
     list_apps.sort(key=key_sort_list_apps)
     json_apps = json.loads(json.dumps(list_apps))
+    print(json_apps)
     print("Listing All Apps Done!")
+
     socketio.emit('list_applications', {'data': json_apps}, namespace='/eventBus')
+    print("Sent List Apps Done!")
     #render('./scripts/test/test.js',{"bbbb":"cccc"})
 
 def run_js():
@@ -995,8 +998,11 @@ def run_js():
 
 def build_multi_hook_script(message):
     print(message)
+    print("1111")
     result = render('./scripts/hook/hook_multi.js', message)
+    print("2222")
     cache_script("hooks_cache_multi",result)
+    print("3333")
     # print("yyyyy")
     # print(result)
     # socketio.emit('list_applications', {'data': json_apps}, namespace='/eventBus')

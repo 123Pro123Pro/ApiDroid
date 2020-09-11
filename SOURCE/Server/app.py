@@ -78,7 +78,7 @@ def getDaScript():
 @app.route('/hook_script', methods=['GET'])
 def getHookScript():
     try:
-        with open("./cache/current/hook_script.js",'r') as f:
+        with open("./cache/current/hook_script.js",'r', encoding='utf-8') as f:
             app_global.hook_script = f.read()
     except Exception as e:
         app_global.hook_script = str(e)
@@ -92,7 +92,7 @@ def getHookScript():
 @app.route('/hook_script_multi', methods=['GET'])
 def getHookScriptMulti():
     try:
-        with open("./cache/current/hook_script_multi.js",'r') as f:
+        with open("./cache/current/hook_script_multi.js",'r', encoding='utf-8') as f:
             app_global.hook_script_multi = f.read()
     except Exception as e:
         app_global.hook_script_multi = str(e)
@@ -105,7 +105,7 @@ def getHookScriptMulti():
 @app.route('/hook_script_mini', methods=['GET'])
 def getHookScriptMini():
     try:
-        with open("./cache/current/hook_script_mini.js",'r') as f:
+        with open("./cache/current/hook_script_mini.js",'r', encoding='utf-8') as f:
             app_global.hook_script_mini = f.read()
     except Exception as e:
         app_global.hook_script_mini = str(e)
@@ -164,28 +164,28 @@ def main():
     init_conf()
     init_cache()
     if app_global.packagename == "":
-        with open('./config/hook_conf.json','r') as f:
+        with open('./config/hook_conf.json','r', encoding='utf-8') as f:
             hook_conf_rd = f.read()
             if hook_conf_rd != "":
                 try:
                     app_global.hook_conf = json.loads(hook_conf_rd)
                 except Exception as e:
                     print (stylize("[!]hook_conf invalid format",Error))
-        with open('./config/enum_conf.json','r') as f:
+        with open('./config/enum_conf.json','r', encoding='utf-8') as f:
             enum_conf_rd = f.read()
             if enum_conf_rd != "":
                 try:
                     app_global.enum_conf = json.loads(enum_conf_rd)
                 except Exception as e:
                     print (stylize("[!]enum_conf invalid format",Error))
-    with open('./config/intercept_conf.json','r') as f:
+    with open('./config/intercept_conf.json','r', encoding='utf-8') as f:
         intercept_conf_rd = f.read()
         if intercept_conf_rd != "":
             try:
                 app_global.inspect_conf = json.loads(intercept_conf_rd)
             except Exception as e:
                 print (stylize("[!]intercept_conf invalid format",Error))
-    with open('./config/monitor_conf.json','r') as f:
+    with open('./config/monitor_conf.json','r', encoding='utf-8') as f:
         monitor_conf_rd = f.read()
         if monitor_conf_rd != "":
             try:
