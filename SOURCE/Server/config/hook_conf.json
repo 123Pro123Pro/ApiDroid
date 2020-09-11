@@ -1,1 +1,1 @@
-{"packagename": "com.mservice.momotransfer", "hooks_list": [{"classname": "com.facebook.react.bridge.JavaMethodWrapper", "methodname": "invoke___12", "overload_type": ""}]}
+{"packagename": "com.vnpay.bidv", "hooks_list": [{"classname": "com.zing.zalocore.utils.cryptology.CoreUtils", "methodname": "encodeHttpParamsNative___7", "overload_type": ""}]}
