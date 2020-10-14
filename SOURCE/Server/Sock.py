@@ -561,7 +561,7 @@ def list_method_class(message):
 @authenticated_only
 def takeScreencapture():
     print("Taken Screenshot!!!")
-    os.system('adb exec-out screencap -p > ./save_data/screenshot/screen.png')
+    os.system('adb -s '+str(app_global.device.id)+' exec-out screencap -p > ./save_data/screenshot/screen.png')
     emit("taken_screenshot", namespace='/eventBus')
     os.system('cp ./save_data/screenshot/screen.png ./save_data/screenshot/screenshot'+str(datetime.datetime.now()).replace(" ","_").replace(":",".")+'.png')
 
@@ -580,7 +580,7 @@ def downloadBaseApk(message):
     print("downloading base.apk!!!")
     try:
         os.system('mkdir "./save_data/apk/'+message.get('app_id')+'/"')
-        os.system('adb pull '+message.get('path')+' ./save_data/apk/'+message.get('app_id')+'/')
+        os.system('adb -s '+str(app_global.device.id)+' pull '+message.get('path')+' ./save_data/apk/'+message.get('app_id')+'/')
         emit("downloadApkDone", namespace='/eventBus')
     except Exception as e:
         print("Error: ", e)
